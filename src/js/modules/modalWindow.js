@@ -53,8 +53,17 @@ const modal = () => {
     }
     
     const showModalAfterTime = (modalQuerySelector, closeTriggerSelector, time) => {
+        let checkIfOtherModalsAreOpen;
+
         setTimeout(() => {
-            openModal(modalQuerySelector, closeTriggerSelector);
+            document.querySelectorAll('[data-modal]').forEach(item => {
+                if(getComputedStyle(item).display !== 'none') {
+                    checkIfOtherModalsAreOpen = true;
+                }
+            })
+
+            if(!checkIfOtherModalsAreOpen) openModal(modalQuerySelector, closeTriggerSelector);
+            
         }, time);
     };
 
@@ -106,6 +115,7 @@ const modal = () => {
 
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+    showModalAfterTime('.popup-consultation', '.popup-consultation .popup-close', 2000);
 };
 
 export default modal;

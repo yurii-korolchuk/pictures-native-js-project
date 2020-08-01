@@ -1741,8 +1741,14 @@ var modal = function modal() {
   };
 
   var showModalAfterTime = function showModalAfterTime(modalQuerySelector, closeTriggerSelector, time) {
+    var checkIfOtherModalsAreOpen;
     setTimeout(function () {
-      openModal(modalQuerySelector, closeTriggerSelector);
+      document.querySelectorAll('[data-modal]').forEach(function (item) {
+        if (getComputedStyle(item).display !== 'none') {
+          checkIfOtherModalsAreOpen = true;
+        }
+      });
+      if (!checkIfOtherModalsAreOpen) openModal(modalQuerySelector, closeTriggerSelector);
     }, time);
   };
 
@@ -1785,6 +1791,7 @@ var modal = function modal() {
 
   bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+  showModalAfterTime('.popup-consultation', '.popup-consultation .popup-close', 2000);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modal);
