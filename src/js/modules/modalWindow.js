@@ -1,14 +1,25 @@
 const modal = () => {
-    const bindModal = (openTriggerSelector, modalQuerySelector, closeTriggerSelector, paramsToCheck = []) => {
+    
+    let btnPressed = false;
+
+    const bindModal = (openTriggerSelector, modalQuerySelector, closeTriggerSelector, destroyOpenTrigger = false, paramsToCheck = []) => {
         /* paramsToCheck - массив всех параметров (инпуты, чекбоксы и т.д.), 
            которые должны быть проверены перед открытием следующего модального окна, первый 
            элемент массива обязательно является селектором модального окна, в котором проводится проверка */
 
+        // destroyTrigger - true, если при открытии модального окна нужно убрать триггер (подарок в данном случае)
+    
         document.querySelectorAll(openTriggerSelector).forEach(item => {
+            item.classList.add('animate', 'fadeIn');
+
             item.addEventListener('click', (e) => {
                 if(e.target) {
                     e.preventDefault();
                 }
+
+                btnPressed = true;
+
+                if(destroyOpenTrigger) item.remove();
 
                 if(paramsToCheck.length) {
                     const itemsToCheck = paramsToCheck.filter((item, i) => i != 0).map(item => document.querySelector(item));
@@ -29,7 +40,6 @@ const modal = () => {
                                 checked = item.checked ? true : false;
                                 i === itemsToCheck.length - 1 ? (checked ? openModal(modalQuerySelector, closeTriggerSelector) : putWarningInModal(modal, warning, '.status')) : null;
                                 break;
-                                
                             default:
                                 openModal(modalQuerySelector, closeTriggerSelector);
                         }
@@ -84,6 +94,16 @@ const modal = () => {
         return scrollWidth;
 
     }
+
+    const openModalByScroll = (selector) => {
+        window.addEventListener('scroll', () => {
+            let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+            if(!btnPressed && (window.pageYOffset + document.documentElement.clientHeight >= scrollHeight)) {
+                document.querySelector(selector).click();
+            }
+        })
+    }
     
     const openModal = (modalQuerySelector, closeTriggerSelector) => { 
         const modal = document.querySelector(modalQuerySelector);
@@ -115,7 +135,9 @@ const modal = () => {
 
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
-    showModalAfterTime('.popup-consultation', '.popup-consultation .popup-close', 2000);
+    bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
+    openModalByScroll('.fixed-gift');
+    showModalAfterTime('.popup-consultation', '.popup-consultation .popup-close', 60000);
 };
 
 export default modal;

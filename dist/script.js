@@ -1684,17 +1684,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var modal = function modal() {
+  var btnPressed = false;
+
   var bindModal = function bindModal(openTriggerSelector, modalQuerySelector, closeTriggerSelector) {
-    var paramsToCheck = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+    var destroyOpenTrigger = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+    var paramsToCheck = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
 
     /* paramsToCheck - массив всех параметров (инпуты, чекбоксы и т.д.), 
        которые должны быть проверены перед открытием следующего модального окна, первый 
        элемент массива обязательно является селектором модального окна, в котором проводится проверка */
+    // destroyTrigger - true, если при открытии модального окна нужно убрать триггер (подарок в данном случае)
     document.querySelectorAll(openTriggerSelector).forEach(function (item) {
+      item.classList.add('animate', 'fadeIn');
       item.addEventListener('click', function (e) {
         if (e.target) {
           e.preventDefault();
         }
+
+        btnPressed = true;
+        if (destroyOpenTrigger) item.remove();
 
         if (paramsToCheck.length) {
           var itemsToCheck = paramsToCheck.filter(function (item, i) {
@@ -1764,6 +1772,16 @@ var modal = function modal() {
     return scrollWidth;
   };
 
+  var openModalByScroll = function openModalByScroll(selector) {
+    window.addEventListener('scroll', function () {
+      var scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+      if (!btnPressed && window.pageYOffset + document.documentElement.clientHeight >= scrollHeight) {
+        document.querySelector(selector).click();
+      }
+    });
+  };
+
   var openModal = function openModal(modalQuerySelector, closeTriggerSelector) {
     var modal = document.querySelector(modalQuerySelector);
     var scrollWidth = calcScrollWidth();
@@ -1791,7 +1809,9 @@ var modal = function modal() {
 
   bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
-  showModalAfterTime('.popup-consultation', '.popup-consultation .popup-close', 2000);
+  bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
+  openModalByScroll('.fixed-gift');
+  showModalAfterTime('.popup-consultation', '.popup-consultation .popup-close', 60000);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modal);
