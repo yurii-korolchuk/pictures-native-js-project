@@ -10,8 +10,6 @@ const modal = () => {
         // destroyTrigger - true, если при открытии модального окна нужно убрать триггер (подарок в данном случае)
         document.querySelector(modalQuerySelector).classList.add('animated', 'fadeIn');
         document.querySelectorAll(openTriggerSelector).forEach(item => {
-            
-
             item.addEventListener('click', (e) => {
                 if(e.target) {
                     e.preventDefault();
