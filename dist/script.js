@@ -1833,8 +1833,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var slider = function slider() {
-  var bindSlider = function bindSlider(slidesSelector, prevButtonSelector, nextButtonSelector) {
-    var direction = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'horizontal';
+  var bindSlider = function bindSlider(slidesSelector, direction, prevButtonSelector, nextButtonSelector) {
     var slides = document.querySelectorAll(slidesSelector);
     var slideIndex = 0;
 
@@ -1869,9 +1868,23 @@ var slider = function slider() {
         slides[slideIndex].classList.add('slideInRight');
       });
     } catch (e) {}
+
+    if (direction === 'vertical') {
+      setInterval(function () {
+        changeSlide(1);
+        slides[slideIndex].classList.add('slideInDown');
+      }, 10000);
+    } else {
+      setInterval(function () {
+        changeSlide(1);
+        slides[slideIndex].classList.remove('slideInLeft');
+        slides[slideIndex].classList.add('slideInRight');
+      }, 10000);
+    }
   };
 
-  bindSlider('.feedback-slider-item', '.main-prev-btn', '.main-next-btn');
+  bindSlider('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn');
+  bindSlider('.main-slider-item', 'vertical');
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (slider);
