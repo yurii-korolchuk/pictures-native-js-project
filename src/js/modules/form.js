@@ -2,6 +2,7 @@
 const form = () => {
     const forms = document.querySelectorAll('form');
     const inputs = document.querySelectorAll('input');
+    const upload = document.querySelectorAll('input[name=upload]');
 
     const message = {
         success: 'Спасибо! Мы с Вами скоро свяжемся!',
@@ -23,7 +24,21 @@ const form = () => {
         inputs.forEach(item => {
             item.value = '';
         })
+        upload.forEach(item => {
+            item.parentElement.querySelector('.file_name').textContent = 'Файл не выбран';
+        })
     }
+
+    upload.forEach(item => {
+        item.addEventListener('input', () => {
+            const _nameSplit = item.files[0].name.split('.');
+            const _nameExtension = _nameSplit[_nameSplit.length - 1];
+            const _name = _nameSplit[0];
+
+            const name = _name.length > 8 ? _name.substr(0, 6) + '...' + _nameExtension : item.files[0].name;
+            item.parentElement.querySelector('.file_name').textContent = name;
+        })
+    })
 
     forms.forEach(item => {
         item.addEventListener('submit', (e) => {
@@ -34,6 +49,12 @@ const form = () => {
             const statusImg = document.createElement('img');
 
             statusDiv.classList.add('animated', 'fadeInDown');
+            statusDiv.style.cssText = `
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-directon: column;
+            `;
             statusImg.setAttribute('src', message.spinner); 
             statusDiv.appendChild(statusImg);
             statusDiv.appendChild(statusText);
