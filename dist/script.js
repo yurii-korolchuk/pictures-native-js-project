@@ -3655,7 +3655,7 @@ var form = function form() {
       setTimeout(function () {
         item.style.display = 'none';
       }, 400);
-      var api = item.closest('.popup-design') ? 'assets/server.php' : 'assets/question.php';
+      var api = item.closest('.popup-design') || item.classList.contains('form-data') ? 'assets/server.php' : 'assets/question.php';
       postFormData(api, data).then(function (res) {
         statusText.textContent = message.success;
         statusImg.setAttribute('src', message.ok);
@@ -3665,8 +3665,15 @@ var form = function form() {
       }).finally(function () {
         clearInputs(inputs);
         setTimeout(function () {
-          statusMessage.remove();
-        }, 6000);
+          statusDiv.classList.remove('fadeInDown');
+          statusDiv.classList.add('fadeOutDown');
+          setTimeout(function () {
+            statusDiv.remove();
+          }, 400);
+          item.style.display = 'block';
+          item.classList.remove('fadeOutUp');
+          item.classList.add('fadeInUp');
+        }, 4500);
       });
     });
   });

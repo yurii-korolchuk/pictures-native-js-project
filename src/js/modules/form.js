@@ -46,7 +46,7 @@ const form = () => {
             setTimeout(() => {
                 item.style.display = 'none';
             }, 400)
-            const api = item.closest('.popup-design') ? 'assets/server.php' : 'assets/question.php';
+            const api = item.closest('.popup-design') || item.classList.contains('form-data') ? 'assets/server.php' : 'assets/question.php';
             postFormData(api, data)
                 .then(res => {
                     statusText.textContent = message.success;
@@ -59,8 +59,16 @@ const form = () => {
                 .finally(() => {
                     clearInputs(inputs);
                     setTimeout(() => {
-                        statusMessage.remove();
-                    }, 6000)
+                        statusDiv.classList.remove('fadeInDown');
+                        statusDiv.classList.add('fadeOutDown');
+                        setTimeout(() => {
+                            statusDiv.remove();
+                        },400)
+
+                        item.style.display = 'block';
+                        item.classList.remove('fadeOutUp');
+                        item.classList.add('fadeInUp');
+                    }, 4500)
                 })
 
         });
