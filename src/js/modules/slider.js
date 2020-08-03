@@ -45,7 +45,7 @@ const slider = () => {
                 paused = setInterval(() => {
                     changeSlide(1);
                     slides[slideIndex].classList.add('slideInDown');
-                }, 8500)
+                }, 6000)
             } else {
                 paused = setInterval(() => {
                     changeSlide(1);
