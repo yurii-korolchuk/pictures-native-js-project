@@ -46,8 +46,8 @@ const form = () => {
             setTimeout(() => {
                 item.style.display = 'none';
             }, 400)
-
-            postFormData('assets/server.php', data)
+            const api = item.closest('.popup-design') ? 'assets/server.php' : 'assets/question.php';
+            postFormData(api, data)
                 .then(res => {
                     statusText.textContent = message.success;
                     statusImg.setAttribute('src', message.ok);

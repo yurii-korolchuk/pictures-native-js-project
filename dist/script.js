@@ -3655,7 +3655,8 @@ var form = function form() {
       setTimeout(function () {
         item.style.display = 'none';
       }, 400);
-      postFormData('assets/server.php', data).then(function (res) {
+      var api = item.closest('.popup-design') ? 'assets/server.php' : 'assets/question.php';
+      postFormData(api, data).then(function (res) {
         statusText.textContent = message.success;
         statusImg.setAttribute('src', message.ok);
       }).catch(function (error) {
