@@ -1836,6 +1836,7 @@ var slider = function slider() {
   var bindSlider = function bindSlider(slidesSelector, direction, prevButtonSelector, nextButtonSelector) {
     var slides = document.querySelectorAll(slidesSelector);
     var slideIndex = 0;
+    var paused;
 
     var showSlide = function showSlide(n) {
       slideIndex = n;
@@ -1869,18 +1870,28 @@ var slider = function slider() {
       });
     } catch (e) {}
 
-    if (direction === 'vertical') {
-      setInterval(function () {
-        changeSlide(1);
-        slides[slideIndex].classList.add('slideInDown');
-      }, 10000);
-    } else {
-      setInterval(function () {
-        changeSlide(1);
-        slides[slideIndex].classList.remove('slideInLeft');
-        slides[slideIndex].classList.add('slideInRight');
-      }, 10000);
-    }
+    var activateInterval = function activateInterval() {
+      if (direction === 'vertical') {
+        paused = setInterval(function () {
+          changeSlide(1);
+          slides[slideIndex].classList.add('slideInDown');
+        }, 8500);
+      } else {
+        paused = setInterval(function () {
+          changeSlide(1);
+          slides[slideIndex].classList.remove('slideInLeft');
+          slides[slideIndex].classList.add('slideInRight');
+        }, 8500);
+      }
+    };
+
+    activateInterval();
+    slides[0].parentNode.addEventListener('mouseenter', function () {
+      clearInterval(paused);
+    });
+    slides[0].parentNode.addEventListener('mouseleave', function () {
+      activateInterval();
+    });
   };
 
   bindSlider('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn');
