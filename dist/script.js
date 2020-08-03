@@ -1694,8 +1694,8 @@ var modal = function modal() {
        которые должны быть проверены перед открытием следующего модального окна, первый 
        элемент массива обязательно является селектором модального окна, в котором проводится проверка */
     // destroyTrigger - true, если при открытии модального окна нужно убрать триггер (подарок в данном случае)
+    document.querySelector(modalQuerySelector).classList.add('animated', 'fadeIn');
     document.querySelectorAll(openTriggerSelector).forEach(function (item) {
-      item.classList.add('animate', 'fadeIn');
       item.addEventListener('click', function (e) {
         if (e.target) {
           e.preventDefault();
@@ -1710,22 +1710,20 @@ var modal = function modal() {
           }).map(function (item) {
             return document.querySelector(item);
           });
-
-          var _modal = document.querySelector(paramsToCheck[0]);
-
+          var modalToCheck = document.querySelector(paramsToCheck[0]);
           var warning = document.createElement('span');
-          warning.classList.add('status', 'fadeIn');
+          warning.classList.add('status');
           warning.textContent = 'Пожалуйста, введите все данные';
           var checked;
           itemsToCheck.forEach(function (item, i) {
             switch (item.type) {
               case 'text':
-                item.value ? openModal(modalQuerySelector, closeTriggerSelector) : putWarningInModal(_modal, warning, '.status');
+                item.value ? openModal(modalQuerySelector, closeTriggerSelector) : putWarningInModal(modalToCheck, warning, '.status');
                 break;
 
               case 'checkbox':
                 checked = item.checked ? true : false;
-                i === itemsToCheck.length - 1 ? checked ? openModal(modalQuerySelector, closeTriggerSelector) : putWarningInModal(_modal, warning, '.status') : null;
+                i === itemsToCheck.length - 1 ? checked ? openModal(modalQuerySelector, closeTriggerSelector) : putWarningInModal(modal, warning, '.status') : null;
                 break;
 
               default:

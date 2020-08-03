@@ -8,9 +8,9 @@ const modal = () => {
            элемент массива обязательно является селектором модального окна, в котором проводится проверка */
 
         // destroyTrigger - true, если при открытии модального окна нужно убрать триггер (подарок в данном случае)
-    
+        document.querySelector(modalQuerySelector).classList.add('animated', 'fadeIn');
         document.querySelectorAll(openTriggerSelector).forEach(item => {
-            item.classList.add('animate', 'fadeIn');
+            
 
             item.addEventListener('click', (e) => {
                 if(e.target) {
@@ -23,10 +23,10 @@ const modal = () => {
 
                 if(paramsToCheck.length) {
                     const itemsToCheck = paramsToCheck.filter((item, i) => i != 0).map(item => document.querySelector(item));
-                    const modal = document.querySelector(paramsToCheck[0]);
+                    const modalToCheck = document.querySelector(paramsToCheck[0]);
 
                     const warning = document.createElement('span');
-                    warning.classList.add('status', 'fadeIn');
+                    warning.classList.add('status');
                     warning.textContent = 'Пожалуйста, введите все данные';
 
                     let checked;
@@ -34,7 +34,7 @@ const modal = () => {
                     itemsToCheck.forEach((item, i) => {
                         switch(item.type) {
                             case 'text':
-                                item.value ? openModal(modalQuerySelector, closeTriggerSelector) : putWarningInModal(modal, warning, '.status');
+                                item.value ? openModal(modalQuerySelector, closeTriggerSelector) : putWarningInModal(modalToCheck, warning, '.status');
                                 break;
                             case 'checkbox':
                                 checked = item.checked ? true : false;
