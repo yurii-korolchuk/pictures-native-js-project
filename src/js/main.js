@@ -4,6 +4,7 @@ import form from './modules/form';
 import mask from './modules/mask';
 import chechTextInputs from './modules/checkTextInputs';
 import loadMoreStyles from './modules/loadMoreStyles';
+import calcPrice from './modules/calcPrice';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -13,4 +14,5 @@ window.addEventListener('DOMContentLoaded', () => {
     mask('[name=phone]', '+7 (___) ___ __ __');
     chechTextInputs('[name=name]');
     loadMoreStyles('.button-styles', '.styles-2');
+    calcPrice('#size', '#material', '#options', '.promocode', '.calc-price');
 });

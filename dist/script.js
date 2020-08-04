@@ -4252,6 +4252,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_mask__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/mask */ "./src/js/modules/mask.js");
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
 /* harmony import */ var _modules_loadMoreStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/loadMoreStyles */ "./src/js/modules/loadMoreStyles.js");
+/* harmony import */ var _modules_calcPrice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calcPrice */ "./src/js/modules/calcPrice.js");
+
 
 
 
@@ -4267,7 +4269,45 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_mask__WEBPACK_IMPORTED_MODULE_3__["default"])('[name=phone]', '+7 (___) ___ __ __');
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name=name]');
   Object(_modules_loadMoreStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '.styles-2');
+  Object(_modules_calcPrice__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.promocode', '.calc-price');
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/calcPrice.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/calcPrice.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var calcPrice = function calcPrice(sizeSelector, materialSelector, additionalSelector, promocodeSelector, overallSelector) {
+  var size = document.querySelector(sizeSelector),
+      material = document.querySelector(materialSelector),
+      additional = document.querySelector(additionalSelector),
+      promocode = document.querySelector(promocodeSelector),
+      overall = document.querySelector(overallSelector);
+
+  var calc = function calc() {
+    if (size.value && material.value) {
+      var sum = Math.round(+size.value * +material.value);
+      if (additional.value) sum += +additional.value;
+      if (promocode.value == 'IWANTPOPART') sum = Math.floor(sum * 0.7);
+      overall.textContent = sum;
+    } else {
+      overall.textContent = 'Для расчета нужно выбрать размер картины и материал картины';
+    }
+  };
+
+  size.addEventListener('change', calc);
+  material.addEventListener('change', calc);
+  additional.addEventListener('change', calc);
+  promocode.addEventListener('input', calc);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (calcPrice);
 
 /***/ }),
 
