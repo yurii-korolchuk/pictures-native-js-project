@@ -4335,6 +4335,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_filterImages__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filterImages */ "./src/js/modules/filterImages.js");
 /* harmony import */ var _modules_showImages__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/showImages */ "./src/js/modules/showImages.js");
 /* harmony import */ var _modules_accodrion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accodrion */ "./src/js/modules/accodrion.js");
+/* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+
 
 
 
@@ -4359,6 +4361,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_filterImages__WEBPACK_IMPORTED_MODULE_7__["default"])('.portfolio-menu li', '.portfolio-block', '.portfolio-no');
   Object(_modules_showImages__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
   Object(_modules_accodrion__WEBPACK_IMPORTED_MODULE_9__["default"])('.accordion-heading');
+  Object(_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])('.burger', '.burger-menu');
 });
 
 /***/ }),
@@ -4408,6 +4411,36 @@ var accordion = function accordion(btnSelector) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (accordion);
+
+/***/ }),
+
+/***/ "./src/js/modules/burger.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/burger.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var burger = function burger(burgerSelector, menuSelector) {
+  var menu = document.querySelector(menuSelector);
+  menu.style.display = 'none';
+  document.querySelector(burgerSelector).addEventListener('click', function () {
+    if (menu.style.display === 'none' && window.screen.availWidth <= 992) {
+      menu.style.display = 'block';
+    } else if (menu.style.display === 'block' && window.screen.availWidth <= 992) {
+      menu.style.display = 'none';
+    }
+  });
+  window.addEventListener('resize', function () {
+    if (menu.style.display === 'block' && window.screen.availWidth > 992) {
+      menu.style.display = 'none';
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (burger);
 
 /***/ }),
 
