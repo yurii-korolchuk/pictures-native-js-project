@@ -5,6 +5,7 @@ import mask from './modules/mask';
 import chechTextInputs from './modules/checkTextInputs';
 import loadMoreStyles from './modules/loadMoreStyles';
 import calcPrice from './modules/calcPrice';
+import filterImages from './modules/filterImages';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -15,4 +16,5 @@ window.addEventListener('DOMContentLoaded', () => {
     chechTextInputs('[name=name]');
     loadMoreStyles('.button-styles', '.styles-2');
     calcPrice('#size', '#material', '#options', '.promocode', '.calc-price');
+    filterImages('.portfolio-menu li', '.portfolio-block', '.portfolio-no');
 });
