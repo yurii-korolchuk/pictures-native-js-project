@@ -6,6 +6,8 @@ import chechTextInputs from './modules/checkTextInputs';
 import loadMoreStyles from './modules/loadMoreStyles';
 import calcPrice from './modules/calcPrice';
 import filterImages from './modules/filterImages';
+import showImages from './modules/showImages';
+import accordion from './modules/accodrion';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -14,7 +16,10 @@ window.addEventListener('DOMContentLoaded', () => {
     form();
     mask('[name=phone]', '+7 (___) ___ __ __');
     chechTextInputs('[name=name]');
+    chechTextInputs('[name=message]');
     loadMoreStyles('.button-styles', '.styles-2');
     calcPrice('#size', '#material', '#options', '.promocode', '.calc-price');
     filterImages('.portfolio-menu li', '.portfolio-block', '.portfolio-no');
+    showImages('.sizes-block');
+    accordion('.accordion-heading');
 });
