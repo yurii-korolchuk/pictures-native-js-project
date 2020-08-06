@@ -1274,6 +1274,7 @@ h4 {
 }
 
 .chevron-up {
+  display: none;
   background: none;
   border: none;
   position: fixed;

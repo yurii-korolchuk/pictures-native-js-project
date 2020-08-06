@@ -25,5 +25,5 @@ window.addEventListener('DOMContentLoaded', () => {
     showImages('.sizes-block');
     accordion('.accordion-heading');
     burger('.burger', '.burger-menu');
-    anchorsScroll('.burger-menu li a', '.chevron-up a')
+    anchorsScroll('.chevron-up', '.chevron-up a', '.burger-menu li a')
 });
