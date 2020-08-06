@@ -9,6 +9,7 @@ import filterImages from './modules/filterImages';
 import showImages from './modules/showImages';
 import accordion from './modules/accodrion';
 import burger from './modules/burger';
+import anchorsScroll from './modules/anchorsScroll';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -24,4 +25,5 @@ window.addEventListener('DOMContentLoaded', () => {
     showImages('.sizes-block');
     accordion('.accordion-heading');
     burger('.burger', '.burger-menu');
+    anchorsScroll('.burger-menu li a')
 });
