@@ -4364,7 +4364,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_showImages__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
   Object(_modules_accodrion__WEBPACK_IMPORTED_MODULE_9__["default"])('.accordion-heading');
   Object(_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])('.burger', '.burger-menu');
-  Object(_modules_anchorsScroll__WEBPACK_IMPORTED_MODULE_11__["default"])('.burger-menu li a');
+  Object(_modules_anchorsScroll__WEBPACK_IMPORTED_MODULE_11__["default"])('.burger-menu li a', '.chevron-up a');
 });
 
 /***/ }),
