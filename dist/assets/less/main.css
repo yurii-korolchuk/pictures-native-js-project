@@ -573,6 +573,7 @@ h4 {
   /* IE 9 fix */
   opacity: 0;
   cursor: pointer;
+  z-index: 5;
 }
 .calc .file_upload > button {
   transition: background 0.2s;

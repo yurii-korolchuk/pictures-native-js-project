@@ -1272,18 +1272,6 @@ h4 {
   transform: translateX(-50%) !important;
   padding: 3rem 6rem 4rem 6rem;
 }
-
-.chevron-up {
-  display: none;
-  background: none;
-  border: none;
-  position: fixed;
-  right: 7%;
-  bottom: 10%;
-  width: 70px;
-  height: 70px;
-}
-
 @media (max-width: 1399px) {
   .paints {
     display: none;

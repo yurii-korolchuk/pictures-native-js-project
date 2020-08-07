@@ -1,4 +1,13 @@
 
+const showFileName = (item) => {
+    const _nameSplit = item.files[0].name.split('.');
+    const _nameExtension = _nameSplit[_nameSplit.length - 1];
+    const _name = _nameSplit[0];
+
+    const name = _name.length > 8 ? _name.substr(0, 6) + '...' + _nameExtension : item.files[0].name;
+    item.parentElement.querySelector('.file_name').textContent = name;
+}
+
 const form = () => {
     const forms = document.querySelectorAll('form');
     const inputs = document.querySelectorAll('input');
@@ -30,13 +39,8 @@ const form = () => {
     }
 
     upload.forEach(item => {
-        item.addEventListener('input', () => {
-            const _nameSplit = item.files[0].name.split('.');
-            const _nameExtension = _nameSplit[_nameSplit.length - 1];
-            const _name = _nameSplit[0];
-
-            const name = _name.length > 8 ? _name.substr(0, 6) + '...' + _nameExtension : item.files[0].name;
-            item.parentElement.querySelector('.file_name').textContent = name;
+        item.addEventListener('input', (e) => {
+            showFileName(e.target);
         })
     })
 
@@ -96,4 +100,4 @@ const form = () => {
     });
 };
 
-export default form;
+export { showFileName, form }

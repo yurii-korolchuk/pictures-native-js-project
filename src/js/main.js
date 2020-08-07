@@ -1,6 +1,6 @@
 import modal from './modules/modalWindow';
 import slider from './modules/slider';
-import form from './modules/form';
+import { form } from './modules/form';
 import mask from './modules/mask';
 import chechTextInputs from './modules/checkTextInputs';
 import loadMoreStyles from './modules/loadMoreStyles';
@@ -10,6 +10,7 @@ import showImages from './modules/showImages';
 import accordion from './modules/accodrion';
 import burger from './modules/burger';
 import anchorsScroll from './modules/anchorsScroll';
+import dragAndDrop from './modules/dragAndDrop';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
@@ -25,5 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
     showImages('.sizes-block');
     accordion('.accordion-heading');
     burger('.burger', '.burger-menu');
-    anchorsScroll('.chevron-up', '.chevron-up a', '.burger-menu li a')
+    anchorsScroll('.chevron-up', '.chevron-up a', '.burger-menu li a');
+    dragAndDrop('[name="upload"]');
 });

@@ -4337,6 +4337,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_accodrion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accodrion */ "./src/js/modules/accodrion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
 /* harmony import */ var _modules_anchorsScroll__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/anchorsScroll */ "./src/js/modules/anchorsScroll.js");
+/* harmony import */ var _modules_dragAndDrop__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/dragAndDrop */ "./src/js/modules/dragAndDrop.js");
+
 
 
 
@@ -4354,7 +4356,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   Object(_modules_modalWindow__WEBPACK_IMPORTED_MODULE_0__["default"])();
   Object(_modules_slider__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  Object(_modules_form__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  Object(_modules_form__WEBPACK_IMPORTED_MODULE_2__["form"])();
   Object(_modules_mask__WEBPACK_IMPORTED_MODULE_3__["default"])('[name=phone]', '+7 (___) ___ __ __');
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name=name]');
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name=message]');
@@ -4365,6 +4367,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_accodrion__WEBPACK_IMPORTED_MODULE_9__["default"])('.accordion-heading');
   Object(_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])('.burger', '.burger-menu');
   Object(_modules_anchorsScroll__WEBPACK_IMPORTED_MODULE_11__["default"])('.chevron-up', '.chevron-up a', '.burger-menu li a');
+  Object(_modules_dragAndDrop__WEBPACK_IMPORTED_MODULE_12__["default"])('[name="upload"]');
 });
 
 /***/ }),
@@ -4570,6 +4573,76 @@ var chechTextInputs = function chechTextInputs(selector) {
 
 /***/ }),
 
+/***/ "./src/js/modules/dragAndDrop.js":
+/*!***************************************!*\
+  !*** ./src/js/modules/dragAndDrop.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form */ "./src/js/modules/form.js");
+
+
+
+var dragAndDrop = function dragAndDrop(ddSelector) {
+  var inputs = document.querySelectorAll(ddSelector);
+  var uploadIcon = document.createElement('img');
+  uploadIcon.setAttribute('src', 'assets/img/file-upload-solid.svg');
+  uploadIcon.classList.add('animated', 'fadeInUp');
+  uploadIcon.style.cssText = "\n        width: 50px;\n        height: 50px;\n    ";
+
+  var showUploadIcon = function showUploadIcon(item) {
+    if (item.querySelector('button').style.display !== 'none') item.querySelector('button').style.display = 'none';
+    if (!item.querySelector('.file_name').contains(uploadIcon)) item.querySelector('.file_name').appendChild(uploadIcon);
+  };
+
+  var hideUploadIcon = function hideUploadIcon(item) {
+    if (item.querySelector('button').style.display === 'none') item.querySelector('button').style.display = 'block';
+    if (item.querySelector('.file_name').contains(uploadIcon)) uploadIcon.remove();
+  };
+
+  ['dragenter', 'dragleave', 'dragover', 'drop'].forEach(function (eventType) {
+    inputs.forEach(function (input) {
+      input.addEventListener(eventType, function (e) {
+        switch (e.type) {
+          case 'dragenter':
+            e.preventDefault();
+            showUploadIcon(e.target.closest('.file_upload'));
+            break;
+
+          case 'dragleave':
+            e.preventDefault();
+            hideUploadIcon(e.target.closest('.file_upload'));
+            break;
+
+          case 'dragover':
+            e.preventDefault();
+            showUploadIcon(e.target.closest('.file_upload'));
+            break;
+
+          case 'drop':
+            e.preventDefault();
+            hideUploadIcon(e.target.closest('.file_upload'));
+            e.target.files = e.dataTransfer.files;
+            Object(_form__WEBPACK_IMPORTED_MODULE_1__["showFileName"])(e.target);
+            break;
+
+          default:
+            break;
+        }
+      });
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (dragAndDrop);
+
+/***/ }),
+
 /***/ "./src/js/modules/filterImages.js":
 /*!****************************************!*\
   !*** ./src/js/modules/filterImages.js ***!
@@ -4626,11 +4699,13 @@ var filterImages = function filterImages(filtersSelector, imagesSelector, noItem
 /*!********************************!*\
   !*** ./src/js/modules/form.js ***!
   \********************************/
-/*! exports provided: default */
+/*! exports provided: showFileName, form */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showFileName", function() { return showFileName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "form", function() { return form; });
 /* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name */ "./node_modules/core-js/modules/es.function.name.js");
 /* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "./node_modules/core-js/modules/es.object.to-string.js");
@@ -4652,6 +4727,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+var showFileName = function showFileName(item) {
+  var _nameSplit = item.files[0].name.split('.');
+
+  var _nameExtension = _nameSplit[_nameSplit.length - 1];
+  var _name = _nameSplit[0];
+  var name = _name.length > 8 ? _name.substr(0, 6) + '...' + _nameExtension : item.files[0].name;
+  item.parentElement.querySelector('.file_name').textContent = name;
+};
 
 var form = function form() {
   var forms = document.querySelectorAll('form');
@@ -4703,13 +4787,8 @@ var form = function form() {
   };
 
   upload.forEach(function (item) {
-    item.addEventListener('input', function () {
-      var _nameSplit = item.files[0].name.split('.');
-
-      var _nameExtension = _nameSplit[_nameSplit.length - 1];
-      var _name = _nameSplit[0];
-      var name = _name.length > 8 ? _name.substr(0, 6) + '...' + _nameExtension : item.files[0].name;
-      item.parentElement.querySelector('.file_name').textContent = name;
+    item.addEventListener('input', function (e) {
+      showFileName(e.target);
     });
   });
   forms.forEach(function (item) {
@@ -4753,7 +4832,7 @@ var form = function form() {
   });
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (form);
+
 
 /***/ }),
 
